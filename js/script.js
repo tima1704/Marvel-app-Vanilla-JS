@@ -6,14 +6,13 @@ const content_cards = document.querySelector('.content_cards');
 const page = document.querySelector('.page');
 const aroow_back = document.querySelector('.aroow_back');
 const arrow_next = document.querySelector('.aroow_next');
-let offsetc = 0;
 let pagec = 1;
 const LIMIT = 21;
 let total_heroes = 1493;
 const mathTotal = Math.floor(total_heroes / LIMIT);
-
-const getRequest = (offset = 0, urlSearch = '', cb) => {
-    const url = `http://gateway.marvel.com/v1/public/characters?&limit=${LIMIT}&offset=${offset}${!urlSearch ? null : `&nameStartsWith=${urlSearch}`}&orderBy=-modified&ts=1&apikey=${api_cay}&hash=${cay_hash}`; 
+let offsetc = 0;
+const getRequest = (offset, urlSearch, cb) => {
+    const url = `http://gateway.marvel.com/v1/public/characters?&offset=${offsetc}&limit=${LIMIT}${!urlSearch ? null : `&nameStartsWith=${urlSearch}`}&orderBy=-modified&ts=1&apikey=${api_cay}&hash=${cay_hash}`; 
     fetch(url)
     .then(res => res.json())
     .then(r => {
@@ -22,17 +21,6 @@ const getRequest = (offset = 0, urlSearch = '', cb) => {
     .catch(err => {
         console.log(err);
     });
-};
-const info = (id , cb) => {
-    const baseURL = `http://gateway.marvel.com/v1/public/characters/${id}?ts=1&apikey=${api_cay}&hash=${cay_hash}`;
-    fetch(baseURL)
-    .then(res => res.json())
-    .then(r => {
-        cb(r.data)
-    })
-    .catch(err => {
-        console.log(err);
-    })
 };
 window.addEventListener('load' , () => {
     getRequest(0,'',res => {
@@ -76,23 +64,23 @@ window.addEventListener('load' , () => {
 arrow_next.addEventListener('click' , e=> {
     e.preventDefault();
     aroow_back.removeAttribute('disabled');
-
-    if(pagec >=1 && pagec <= mathTotal){
+    if(pagec >= 1 && pagec <= mathTotal){
         if(pagec === mathTotal){
-            getRequest('',`offset=${offsetc += LIMIT}&limit=${LIMIT}` ,res => {
+            getRequest(`offset=${offsetc += LIMIT}&limit=${LIMIT}`, '' ,res => {
                 pagec++;
                 page.innerHTML = pagec;
                 let temp = res.results.map(item => cardTemp(item)).join('');
-                content_cards.innerHTML = temp;
                 console.log(temp);
+                content_cards.innerHTML = temp;
+
             });
         }else{
-            getRequest('', `offset=${offsetc += LIMIT}&limit=${LIMIT}` ,res => {
+            getRequest(`offset=${offsetc += LIMIT}&limit=${LIMIT}`, '' ,res => {
                 pagec++;
                 page.innerHTML = pagec;
                 let temp = res.results.map(item => cardTemp(item)).join('');
+                console.log(temp); 
                 content_cards.innerHTML = temp;
-                console.log(temp);
             })
         }
     }
@@ -106,12 +94,12 @@ aroow_back.addEventListener('click' , e => {
             aroow_back.setAttribute('disabled' , true);
             offsetc = 0;
             page.innerHTML = pagec;
-            getRequest('' ,`offset=${offsetc}&limit=${LIMIT}` , res => {
+            getRequest( `offset=${offsetc}&limit=${LIMIT}`, '' , res => {
                 let temp = res.results.map(item => cardTemp(item)).join('');
                 content_cards.innerHTML = temp;
             })
         }else{
-            getRequest('' ,`offset=${offsetc -= LIMIT}&limit=${LIMIT}`, res => {
+            getRequest(`offset=${offsetc -= LIMIT}&limit=${LIMIT}`, '', res => {
                 let temp = res.results.map(item => cardTemp(item)).join('');
                 content_cards.innerHTML = temp;
             })
