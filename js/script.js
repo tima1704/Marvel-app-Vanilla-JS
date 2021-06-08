@@ -8,7 +8,7 @@ const content_cards = document.querySelector('.content_cards');
 // const arrow_next = document.querySelector('.aroow_next');
 // let offsetc = 0;
 // let pagec = 1;
-// const LIMIT = 21;
+const LIMIT = 21;
 // let total_heroes = 1493;
 // const mathTotal = Math.floor(total_heroes / LIMIT);
 
