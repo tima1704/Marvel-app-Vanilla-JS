@@ -4,32 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>Marvel</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
-        <div class="general_tophead">
-            <div class="left_content_top">
-                <a href=""><img src="https://avatanplus.ru/files/resources/original/5ab55b8326f98162546d7858.png"></a>
-            </div>
-            <div class="midle_content_top">
-                <ul>
-                    <a href="">INFO</a>
-                    <a href="">HEROES</a>
-                    <a href=""></a>
-                    <a href="">OVERVIEW</a>
-                </ul>
-            </div>
-            <div>
-                <button class="btn_header">LOGIN</button>
-            </div>
-        </div>
         <div class="genetal_center_header">
             <div class="content_center">
                 <h1>MARVEL Studio</h1>
                 <p>Marvel Entertainment, LLC, a wholly-owned subsidiary of The Walt Disney Company.</p>
-                <button class="midl_learn_more">Click</button>
+                <form action="#card">
+                    <button class="midl_learn_more">Click</button>
+                </form>
             </div>
         </div>
     </header>
@@ -58,7 +45,7 @@
                     <input type="text" class="search" placeholder="Search...">
                 </div>
             </div>
-            <div class="content_cards">
+            <div class="content_cards" id="card">
                 <div class="content_zag">
                     <img class="zag_cards" src="https://24.media.tumblr.com/tumblr_ltkrvqJO2Z1r17i3wo1_250.gif">
                     <h2>Загрузка...</h2>
